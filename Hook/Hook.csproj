@@ -275,6 +275,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Hooks\Index.cshtml" />
     <Content Include="Views\Hooks\Detail.cshtml" />
+    <Content Include="Views\Hooks\Inspect.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

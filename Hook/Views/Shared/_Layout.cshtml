@@ -30,10 +30,10 @@
     <body>
         <!-- Header -->
         <header id="header">
-            <h1 id="logo"><a href="index.html">Hook <span></span></a></h1>
+            <h1 id="logo"><a href="~/">Hook <span></span></a></h1>
             <nav id="nav">
                 <ul>
-                    <li class="current"><a href="index.html">@ViewBag.Id</a></li>
+                    <li class="current"><a href="@Url.RouteUrl("detail", new { ViewBag.Id})">@ViewBag.Id</a></li>
                 </ul>
             </nav>
         </header>
@@ -55,7 +55,7 @@
             </ul>
 
             <ul class="copyright">
-                <li>&copy; Untitled</li>
+                <li>&copy; Curtis Mitchell</li>
                 <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
             </ul>
 
