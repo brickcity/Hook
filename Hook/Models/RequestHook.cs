@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace Hook.Models
+{
+    using System.Collections.Specialized;
+using System.Net.Http;
+
+    public class RequestHook
+    {
+        public Uri Url { get; set; }
+        public NameValueCollection Headers { get; set; }
+        public NameValueCollection QueryStringValues { get; set; }
+        public NameValueCollection FormValues { get; set; }
+
+        public string RawBody { get; set; }
+        public string Method { get; set; }
+        public string IpAddress { get; set; }
+        public DateTime CreatedUtc { get; set; }
+        public int Bytes { get; set; }
+    }
+}

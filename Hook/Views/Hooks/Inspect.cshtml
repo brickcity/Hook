@@ -1,17 +1,81 @@
-﻿@{
+﻿@using System.Activities.Statements
+@model List<Hook.Models.RequestHook>
+
+@{
     ViewBag.Title = "Detail";
 }
 
-<header class="special container">
-    <span class="icon fa-certificate"></span>
-    <h2>Getting Started with /@ViewBag.Id</h2>
-    <p>Use the techniques below to send requests to your hook.</p>
-</header>
+@if (Model.Count == 0)
+{
+    <header class="special container">
+        <span class="icon fa-certificate"></span>
+        <h2>Getting Started with /@ViewBag.Id</h2>
+        <p>Use the techniques below to send requests to your hook.</p>
+    </header>
 
-<section class="wrapper style4 special container small">
-    <div class="content">
-        <pre>
+    <section class="wrapper style4 special container small">
+        <div class="content">
+            <pre>
             curl -X GET @ViewBag.Url
         </pre>
-    </div>
-</section>
+        </div>
+    </section>
+}
+else
+{
+    foreach (var r in Model)
+    {
+
+    
+        <section class="wrapper style4 container">
+
+            <header class="special container">
+                <span class="icon fa-arrow-right"></span>
+            </header>     
+                       
+            <div class="row">
+                <div class="8u">
+                    <h3>HTTP Info</h3>
+                    <ul>
+                        <li><strong>@r.Method</strong> @r.Url.AbsolutePath</li>
+                        @foreach (var h in r.Headers)
+                        {
+                            <li><strong>@h: </strong>@r.Headers[h.ToString()]</li>
+                        }
+                        <!--
+                        <li><strong>Host: </strong> @r.Url.GetLeftPart(UriPartial.Authority)</li>
+                        <li><strong>Date: </strong>@r.CreatedUtc.ToString("R")</li>
+                        <li><strong>Content-Type: </strong>@r.Headers["Content-Type"]</li>
+                        <li><strong>Content-Length: </strong>@r.Bytes bytes</li>-->
+                    </ul>
+                </div>
+                    
+                <div class="4u">
+                    <h3>Query String</h3>
+                    
+                    <ul>
+                        @foreach (var q in r.QueryStringValues)
+                        {
+                            <li><strong>@q: </strong>@r.QueryStringValues[q.ToString()]</li>
+                        }
+                    </ul>
+                    
+                    <h3>Form</h3>
+                    
+                    <ul>
+                        @foreach (var q in r.FormValues)
+                        {
+                            <li><strong>@q: </strong>@r.FormValues[q.ToString()]</li>
+                        }
+                    </ul>
+                </div>
+                
+                <div class="12u">
+                    <h3>Body</h3>
+                    @r.RawBody
+                </div>
+            </div>
+ 
+        </section>
+    }
+}
