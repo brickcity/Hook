@@ -1,44 +1,68 @@
 ﻿<!DOCTYPE html>
+<!--
+    Twenty by HTML5 UP
+    html5up.net
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
+    <title>Hook</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <!--[if lte IE 8]><script src="~/css/ie/html5shiv.js"></script><![endif]-->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/jquery.dropotron.min.js"></script>
+    <script src="~/js/jquery.scrolly.min.js"></script>
+    <script src="~/js/jquery.scrollgress.min.js"></script>
+    <script src="~/js/skel.min.js"></script>
+    <script src="~/js/skel-layers.min.js"></script>
+    <script src="~/js/init.js"></script>
+    <noscript>
+        <link rel="stylesheet" href="~/css/skel.css" />
+        <link rel="stylesheet" href="~/css/style.css" />
+        <link rel="stylesheet" href="~/css/style-wide.css" />
+        <link rel="stylesheet" href="~/css/style-noscript.css" />
+    </noscript>
+    <!--[if lte IE 8]><link rel="stylesheet" href="~/css/ie/v8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="~/css/ie/v9.css" /><![endif]-->
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    <body>
+        <!-- Header -->
+        <header id="header">
+            <h1 id="logo"><a href="index.html">Hook <span></span></a></h1>
+            <nav id="nav">
+                <ul>
+                    <li class="current"><a href="index.html">@ViewBag.Id</a></li>
                 </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+            </nav>
+        </header>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        <!-- Main -->
+        <article id="main">
+            @RenderBody()
+        </article>
+        
+        <!-- Footer -->
+        <footer id="footer">
+
+            <ul class="icons">
+                <li><a href="#" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="#" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
+                <li><a href="#" class="icon circle fa-google-plus"><span class="label">Google+</span></a></li>
+                <li><a href="#" class="icon circle fa-github"><span class="label">Github</span></a></li>
+                <li><a href="#" class="icon circle fa-dribbble"><span class="label">Dribbble</span></a></li>
+            </ul>
+
+            <ul class="copyright">
+                <li>&copy; Untitled</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)
 </body>
 </html>
