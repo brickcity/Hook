@@ -11,9 +11,9 @@ using System.Net.Http;
     public class RequestHook
     {
         public Uri Url { get; set; }
-        public NameValueCollection Headers { get; set; }
-        public NameValueCollection QueryStringValues { get; set; }
-        public NameValueCollection FormValues { get; set; }
+        public IList<KeyValuePair<string,string>> Headers { get; set; }
+        public IList<KeyValuePair<string, string>> QueryStringValues { get; set; }
+        public IList<KeyValuePair<string, string>> FormValues { get; set; }
 
         public string RawBody { get; set; }
         public string Method { get; set; }

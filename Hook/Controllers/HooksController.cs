@@ -16,6 +16,8 @@ namespace Hook.Controllers
     {
         private static ConcurrentDictionary<string, List<RequestHook>> memorydb;
 
+        private IHookRepo repo = new MongoHookRepo();
+
             // GET: Hooks
         [Route("{id?}", Name = "detail")]
         public ActionResult Index(string id, string inspect)
@@ -23,9 +25,12 @@ namespace Hook.Controllers
             if(String.IsNullOrEmpty(id)) return View();
 
             //todo: make sure the id exists
-            if (this.InInspectMode()) {return this.InspectView(id);}
+            var hook = repo.Get(id);
+            if(hook == null) return new HttpNotFoundResult();
 
-            return this.CaptureRequest(id);
+            if (this.InInspectMode()) {return this.InspectView(hook);}
+
+            return this.CaptureRequest(hook);
         }
 
         private bool InInspectMode()
@@ -36,21 +41,21 @@ namespace Hook.Controllers
             return (qs.Equals("inspect", StringComparison.InvariantCultureIgnoreCase));
         }
 
-        private ViewResult InspectView(string id)
+        private ViewResult InspectView(Hook hook)
         {
-            ViewBag.Id = id;
-            ViewBag.Url = Url.RouteUrl("detail", new { id }, "http");
-            return this.View("Inspect", Db[id]);
+            ViewBag.Id = hook.Id;
+            ViewBag.Url = Url.RouteUrl("detail", new { hook.Id }, "http");
+            return this.View("Inspect", hook.Requests); //todo: interface for retrieving hook by id
         }
 
-        private ActionResult CaptureRequest(string id)
+        private ActionResult CaptureRequest(Hook hook)
         {
             var rh = new RequestHook
                          {
                              CreatedUtc = DateTime.UtcNow,
-                             Headers = this.Request.Headers,
-                             FormValues = this.Request.Form,
-                             QueryStringValues = this.Request.QueryString,
+                             Headers = this.Request.Headers.ToKeyValuePairs(),
+                             FormValues = this.Request.Form.ToKeyValuePairs(),
+                             QueryStringValues = this.Request.QueryString.ToKeyValuePairs(),
                              Method = this.Request.HttpMethod,
                              IpAddress =
                                  this.Request.ServerVariables["HTTP_X_FORWARDED_FOR"]
@@ -67,14 +72,11 @@ namespace Hook.Controllers
                 }
             }
 
-            Db.AddOrUpdate(id, s => new List<RequestHook>(),
-                (s, list) =>
-                    {
-                        list.Add(rh);
-                        return list;
-                    });
+            //todo: make sure we only store up-to 20 requests per hook
+            hook.Requests.Add(rh);
+            repo.Save(hook);
 
-            ViewData.Model = id;
+            ViewData.Model = hook.Id;
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
@@ -82,16 +84,8 @@ namespace Hook.Controllers
         public ActionResult New()
         {
             var id = new HookId().ToString();
-            Db[id] = new List<RequestHook>();
+            repo.Create(id);
             return this.Redirect(string.Format("/{0}?inspect", id));
-        }
-
-        private ConcurrentDictionary<string, List<RequestHook>> Db
-        {
-            get
-            {
-                return memorydb ?? (memorydb = new ConcurrentDictionary<string, List<RequestHook>>());
-            }
         }
     }
 }

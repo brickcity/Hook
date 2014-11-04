@@ -23,15 +23,18 @@
 }
 else
 {
-    foreach (var r in Model)
+    var odd = false;
+    foreach (var r in Model.OrderByDescending(m => m.CreatedUtc))
     {
+        var sectionStyle = (odd) ? "style2 special-alt" : "style4";
 
-    
-        <section class="wrapper style4 container">
+        <section class="wrapper container @sectionStyle">
 
-            <header class="special container">
+            <header class="special">
                 <span class="icon fa-arrow-right"></span>
-            </header>     
+                <h3>@r.CreatedUtc.ToString("R")</h3>
+            </header>                    
+
                        
             <div class="row">
                 <div class="8u">
@@ -40,13 +43,8 @@ else
                         <li><strong>@r.Method</strong> @r.Url.AbsolutePath</li>
                         @foreach (var h in r.Headers)
                         {
-                            <li><strong>@h: </strong>@r.Headers[h.ToString()]</li>
+                            <li><strong>@h.Key: </strong>@h.Value]</li>
                         }
-                        <!--
-                        <li><strong>Host: </strong> @r.Url.GetLeftPart(UriPartial.Authority)</li>
-                        <li><strong>Date: </strong>@r.CreatedUtc.ToString("R")</li>
-                        <li><strong>Content-Type: </strong>@r.Headers["Content-Type"]</li>
-                        <li><strong>Content-Length: </strong>@r.Bytes bytes</li>-->
                     </ul>
                 </div>
                     
@@ -56,7 +54,7 @@ else
                     <ul>
                         @foreach (var q in r.QueryStringValues)
                         {
-                            <li><strong>@q: </strong>@r.QueryStringValues[q.ToString()]</li>
+                            <li><strong>@q.Key: </strong>@q.Value</li>
                         }
                     </ul>
                     
@@ -65,7 +63,7 @@ else
                     <ul>
                         @foreach (var q in r.FormValues)
                         {
-                            <li><strong>@q: </strong>@r.FormValues[q.ToString()]</li>
+                            <li><strong>@q.Key: </strong>@q.Value</li>
                         }
                     </ul>
                 </div>
@@ -77,5 +75,6 @@ else
             </div>
  
         </section>
+        odd = !odd;
     }
 }
