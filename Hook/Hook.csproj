@@ -17,9 +17,9 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -204,6 +204,7 @@
     <Content Include="css\images\light-tl.svg" />
     <Content Include="css\images\light-tr.svg" />
     <Content Include="css\images\overlay.png" />
+    <Content Include="css\prism.css" />
     <Content Include="css\skel.css" />
     <Content Include="css\style-mobile.css" />
     <Content Include="css\style-narrow.css" />
@@ -242,6 +243,7 @@
     <Content Include="js\jquery.validate.unobtrusive.js" />
     <Content Include="js\jquery.validate.unobtrusive.min.js" />
     <Content Include="js\modernizr-2.6.2.js" />
+    <Content Include="js\prism.js" />
     <Content Include="js\respond.js" />
     <Content Include="js\respond.min.js" />
     <Content Include="js\skel-layers.min.js" />

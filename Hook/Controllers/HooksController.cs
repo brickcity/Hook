@@ -68,6 +68,7 @@ namespace Hook.Controllers
             {
                 using (var reader = new StreamReader(Request.InputStream))
                 {
+                    reader.BaseStream.Seek(0, SeekOrigin.Begin);
                     rh.RawBody = reader.ReadToEnd();
                 }
             }

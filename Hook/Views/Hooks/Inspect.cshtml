@@ -1,5 +1,4 @@
-﻿@using System.Activities.Statements
-@model List<Hook.Models.RequestHook>
+﻿@model List<Hook.Models.RequestHook>
 
 @{
     ViewBag.Title = "Detail";
@@ -10,14 +9,12 @@
     <header class="special container">
         <span class="icon fa-certificate"></span>
         <h2>Getting Started with /@ViewBag.Id</h2>
-        <p>Use the techniques below to send requests to your hook.</p>
+        <p>Send requests to your hook using any HTTP client</p>
     </header>
 
     <section class="wrapper style4 special container small">
         <div class="content">
-            <pre>
-            curl -X GET @ViewBag.Url
-        </pre>
+            <code>curl -X GET @ViewBag.Url</code>
         </div>
     </section>
 }
@@ -43,7 +40,7 @@ else
                         <li><strong>@r.Method</strong> @r.Url.AbsolutePath</li>
                         @foreach (var h in r.Headers)
                         {
-                            <li><strong>@h.Key: </strong>@h.Value]</li>
+                            <li><strong>@h.Key: </strong>@h.Value</li>
                         }
                     </ul>
                 </div>
